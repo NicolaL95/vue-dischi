@@ -16,6 +16,5 @@ export default {
 
 <style scoped lang="scss">
 #main_container {
-  background-color: #1e2d3b;
 }
 </style>
