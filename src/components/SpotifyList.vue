@@ -32,4 +32,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.row {
+  margin-top: 60px;
+  .song_container {
+    margin-top: 20px;
+    background-color: #2e3a46;
+    width: auto;
+    .title_song {
+      color: white;
+      text-align: center;
+    }
+    .desc_song {
+      color: #78746a;
+      text-align: center;
+    }
+  }
+}
 </style>
