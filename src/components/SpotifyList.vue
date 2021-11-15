@@ -32,7 +32,7 @@ export default {
 <style lang="scss" scoped>
 .row {
   margin-top: 20px;
-  max-width: 1920px;
+  width: 100%;
   .song_container {
     margin: 20px;
     background-color: #2e3a46;
