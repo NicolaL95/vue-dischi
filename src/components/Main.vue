@@ -15,6 +15,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#main_container {
-}
 </style>

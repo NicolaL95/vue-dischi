@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-content-center">
+  <div class="row justify-content-center" v-if="loading">
     <div class="song_container" v-for="song in songs" :key="song.genre">
       <img :src="song.poster" alt="" />
       <p class="title_song">{{ song.title }}</p>
@@ -9,21 +9,30 @@
       </div>
     </div>
   </div>
+  <div v-else>
+    <Loading></Loading>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
+import Loading from "./Loading.vue";
+
 export default {
+  components: {
+    Loading,
+  },
   data() {
     return {
       songs: [],
+      loading: false,
       API_URL: "https://flynn.boolean.careers/exercises/api/array/music",
     };
   },
   mounted() {
     axios.get(this.API_URL).then((r) => {
-      console.log(r.data);
       this.songs = r.data.response;
+      this.loading = r.data.success;
     });
   },
 };
