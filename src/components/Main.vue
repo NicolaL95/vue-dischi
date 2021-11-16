@@ -15,8 +15,8 @@ export default {
     Select,
   },
   methods: {
-    findGenre() {
-      console.log("9");
+    findGenre(selGen) {
+      console.log(selGen);
     },
   },
 };

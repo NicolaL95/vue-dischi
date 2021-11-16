@@ -1,15 +1,29 @@
 <template>
   <div class="selector">
-    <select name="fil_gen" id="fil_gen" @change="$emit('find')">
-      <option value="volvo">1</option>
-      <option value="saab">2</option>
-      <option value="opel">3</option>
-      <option value="audi">4</option>
+    <select
+      name="fil_gen"
+      v-model="selectValue"
+      placeholder="All"
+      id="fil_gen"
+      @change="$emit('find', selectValue)"
+    >
+      <option value="All">All</option>
+      <option value="Rock">Rock</option>
+      <option value="Pop">Pop</option>
+      <option value="Jazz">Jazz</option>
+      <option value="Metal">Metal</option>
     </select>
   </div>
 </template>
 
 <script>
+export default {
+  data() {
+    return {
+      selectValue: "All",
+    };
+  },
+};
 </script>
 
 <style>
