@@ -1,6 +1,6 @@
 <template>
   <div class="row justify-content-center" v-if="loading">
-    <Select @find="findGenre" />
+    <Select @find="findGenre" @findA="findArtist" />
     <div class="song_container" v-for="song in filterSong" :key="song.author">
       <img :src="song.poster" alt="" />
       <p class="title_song">{{ song.title }}</p>
@@ -27,14 +27,21 @@ export default {
   },
   methods: {
     findGenre(selGen) {
-      this.filValue = selGen;
+      this.filGenre = selGen;
+      this.filtedArray = this.songs;
+    },
+    findArtist(selArt) {
+      this.filArtist = selArt;
+      this.filtedArray = this.songs;
     },
   },
   data() {
     return {
       songs: [],
       loading: false,
-      filValue: "",
+      filGenre: "All",
+      filArtist: "All",
+      filtedArray: "",
       API_URL: "https://flynn.boolean.careers/exercises/api/array/music",
     };
   },
@@ -45,18 +52,55 @@ export default {
     });
   },
   computed: {
-    filterSong() {
-      if (this.filValue == "All" || this.filValue == "") {
+    /*  filterSong() {
+      if (this.filGenre == "All" || this.filGenre == "") {
         return this.songs;
       }
       const filtered = this.songs.filter((songList) => {
-        return songList.genre.includes(this.filValue);
+        return songList.genre.includes(this.filGenre);
       });
-      /*  function findGen(listSong) {
-        console.log();
-        return listSong.genre.includes(this.filValue);
+      return filtered;
+    }, */
+    /*   filterSong() {
+      if (this.filArtist == "All" || this.filArtist == "") {
+        return this.songs;
       }
-      const filtered = this.songs.filter(findGen); */
+      const filtered = this.songs.filter((songList) => {
+        return songList.author.includes(this.filArtist);
+      });
+      return filtered;
+    }, */
+    filterSong() {
+      if (this.filArtist == "All") {
+        if (this.filGenre == "All") {
+          console.log("All-All");
+          return this.songs;
+        } else {
+          console.log("?-All");
+          const filtered = this.songs.filter((songList) => {
+            return songList.genre.includes(this.filGenre);
+          });
+          return filtered;
+        }
+      } else if (this.filGenre == "All") {
+        if (this.filArtist == "All") {
+          console.log("All-All");
+          return this.songs;
+        } else {
+          console.log("All-?");
+          const filtered = this.songs.filter((songList) => {
+            return songList.author.includes(this.filArtist);
+          });
+          return filtered;
+        }
+      }
+      console.log("?-?");
+      const filtered = this.songs.filter((songList) => {
+        return (
+          songList.author.includes(this.filArtist) &&
+          songList.genre.includes(this.filGenre)
+        );
+      });
       return filtered;
     },
   },
