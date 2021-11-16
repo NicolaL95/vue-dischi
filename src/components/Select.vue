@@ -27,4 +27,7 @@ export default {
 </script>
 
 <style>
+.selector {
+  margin-left: 10px;
+}
 </style>
