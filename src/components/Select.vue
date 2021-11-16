@@ -1,5 +1,6 @@
 <template>
   <div class="selector">
+    <label class="desc_lab" for="genre">Filtra per genere:</label>
     <select
       name="fil_gen"
       v-model="selectGenre"
@@ -12,7 +13,7 @@
         {{ song }}
       </option>
     </select>
-
+    <label class="desc_lab" for="author">Filtra per artista:</label>
     <select
       name="fil_art"
       v-model="selectArtist"
@@ -67,8 +68,14 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .selector {
   margin-left: 10px;
+  .desc_lab {
+    color: white;
+  }
+  select {
+    margin: 0px 20px 10px 10px;
+  }
 }
 </style>

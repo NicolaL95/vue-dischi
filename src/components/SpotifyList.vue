@@ -86,7 +86,7 @@ export default {
   margin-top: 20px;
   width: 100%;
   .song_container {
-    margin: 20px;
+    margin: 10px 20px;
     background-color: #2e3a46;
     width: auto;
     img {
