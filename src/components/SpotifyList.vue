@@ -1,6 +1,7 @@
 <template>
   <div class="row justify-content-center" v-if="loading">
-    <div class="song_container" v-for="song in songs" :key="song.genre">
+    <Select @find="findGenre" />
+    <div class="song_container" v-for="song in filterSong" :key="song.author">
       <img :src="song.poster" alt="" />
       <p class="title_song">{{ song.title }}</p>
       <div class="desc_song">
@@ -17,15 +18,23 @@
 <script>
 import axios from "axios";
 import Loading from "./Loading.vue";
+import Select from "./Select";
 
 export default {
   components: {
     Loading,
+    Select,
+  },
+  methods: {
+    findGenre(selGen) {
+      this.filValue = selGen;
+    },
   },
   data() {
     return {
       songs: [],
       loading: false,
+      filValue: "",
       API_URL: "https://flynn.boolean.careers/exercises/api/array/music",
     };
   },
@@ -34,6 +43,22 @@ export default {
       this.songs = r.data.response;
       this.loading = r.data.success;
     });
+  },
+  computed: {
+    filterSong() {
+      if (this.filValue == "All" || this.filValue == "") {
+        return this.songs;
+      }
+      const filtered = this.songs.filter((songList) => {
+        return songList.genre.includes(this.filValue);
+      });
+      /*  function findGen(listSong) {
+        console.log();
+        return listSong.genre.includes(this.filValue);
+      }
+      const filtered = this.songs.filter(findGen); */
+      return filtered;
+    },
   },
 };
 </script>
