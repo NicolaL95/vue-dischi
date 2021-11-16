@@ -8,10 +8,9 @@
       @change="$emit('find', selectGenre)"
     >
       <option value="All">All</option>
-      <option value="Rock">Rock</option>
-      <option value="Pop">Pop</option>
-      <option value="Jazz">Jazz</option>
-      <option value="Metal">Metal</option>
+      <option v-for="song in indexGenre" :key="song" :value="song">
+        {{ song }}
+      </option>
     </select>
 
     <select
@@ -22,26 +21,48 @@
       @change="$emit('findA', selectArtist)"
     >
       <option value="All">All</option>
-      <option value="Bon Jovi">Bon Jovi</option>
-      <option value="Queen">Queen</option>
-      <option value="Steve Gadd Band">Steve Gadd Band</option>
-      <option value="Iron Maiden">Iron Maiden</option>
-      <option value="Eric Clapton">Eric Clapton</option>
-      <option value="Deep Purple">Deep Purple</option>
-      <option value="Metallica">Metallica</option>
-      <option value="Dave Weckl">Dave Weckl</option>
-      <option value="Michael Jacjson">Michael Jacjson</option>
+      <option v-for="song in indexAuthor" :key="song" :value="song">
+        {{ song }}
+      </option>
     </select>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
       selectGenre: "All",
       selectArtist: "All",
+      API_URL: "https://flynn.boolean.careers/exercises/api/array/music",
+      arrayList: [],
     };
+  },
+  mounted() {
+    axios.get(this.API_URL).then((r) => {
+      this.arrayList = r.data.response;
+    });
+  },
+  computed: {
+    indexGenre() {
+      let arrayPlacer = [];
+      this.arrayList.forEach((element) => {
+        if (arrayPlacer.includes(element.genre) == false) {
+          arrayPlacer.push(element.genre);
+        }
+      });
+      return arrayPlacer;
+    },
+    indexAuthor() {
+      let arrayPlacer = [];
+      this.arrayList.forEach((element) => {
+        if (arrayPlacer.includes(element.author) == false) {
+          arrayPlacer.push(element.author);
+        }
+      });
+      return arrayPlacer;
+    },
   },
 };
 </script>

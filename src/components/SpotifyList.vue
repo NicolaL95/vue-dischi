@@ -28,11 +28,9 @@ export default {
   methods: {
     findGenre(selGen) {
       this.filGenre = selGen;
-      this.filtedArray = this.songs;
     },
     findArtist(selArt) {
       this.filArtist = selArt;
-      this.filtedArray = this.songs;
     },
   },
   data() {
@@ -41,7 +39,6 @@ export default {
       loading: false,
       filGenre: "All",
       filArtist: "All",
-      filtedArray: "",
       API_URL: "https://flynn.boolean.careers/exercises/api/array/music",
     };
   },
@@ -52,31 +49,11 @@ export default {
     });
   },
   computed: {
-    /*  filterSong() {
-      if (this.filGenre == "All" || this.filGenre == "") {
-        return this.songs;
-      }
-      const filtered = this.songs.filter((songList) => {
-        return songList.genre.includes(this.filGenre);
-      });
-      return filtered;
-    }, */
-    /*   filterSong() {
-      if (this.filArtist == "All" || this.filArtist == "") {
-        return this.songs;
-      }
-      const filtered = this.songs.filter((songList) => {
-        return songList.author.includes(this.filArtist);
-      });
-      return filtered;
-    }, */
     filterSong() {
       if (this.filArtist == "All") {
         if (this.filGenre == "All") {
-          console.log("All-All");
           return this.songs;
         } else {
-          console.log("?-All");
           const filtered = this.songs.filter((songList) => {
             return songList.genre.includes(this.filGenre);
           });
@@ -84,17 +61,14 @@ export default {
         }
       } else if (this.filGenre == "All") {
         if (this.filArtist == "All") {
-          console.log("All-All");
           return this.songs;
         } else {
-          console.log("All-?");
           const filtered = this.songs.filter((songList) => {
             return songList.author.includes(this.filArtist);
           });
           return filtered;
         }
       }
-      console.log("?-?");
       const filtered = this.songs.filter((songList) => {
         return (
           songList.author.includes(this.filArtist) &&
